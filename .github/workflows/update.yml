@@ -1,0 +1,108 @@
+name: Update PKG
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: 0 19 * * *
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+
+      - name: Update Makefile
+        run: |
+          rm -rf feeds_packages_lang_node-prebuilt luci-app-mosdns luci-app-daed homeproxy OpenClash luci-app-v2raya OpenWrt-mihomo openwrt_helloworld openwrt_pkgs autocore-arm luci-app-autotimeset luci-app-frps luci-app-frpc luci-app-arpbind imm_pkg luci-app-zerotier
+          git clone --depth 1 https://github.com/sbwml/feeds_packages_lang_node-prebuilt
+          git clone --depth 1 https://github.com/sbwml/luci-app-mosdns
+          git clone --depth 1 https://github.com/sbwml/openwrt_helloworld
+          rm -rf ./openwrt_helloworld/{luci-app-mihomo,mihomo,luci-app-homeproxy,luci-app-openclash,luci-app-daed,daed}
+          sed -i 's/result.insecure = "0"/result.insecure = "1"/g' ./openwrt_helloworld/luci-app-ssr-plus/root/usr/share/shadowsocksr/subscribe.lua
+          git clone --depth 1 https://github.com/sbwml/openwrt_pkgs
+          rm -rf ./openwrt_pkgs/luci-app-zerotier
+          git clone --depth 1 https://github.com/sbwml/autocore-arm
+          sed -i '/init/d' ./autocore-arm/Makefile
+          sed -i '/autocore.json/a\\	$(INSTALL_BIN) ./files/x86/autocore $(1)/etc/init.d/' ./autocore-arm/Makefile
+          sed -i '/autocore.json/a\\	$(INSTALL_DIR) $(1)/etc/init.d' ./autocore-arm/Makefile
+          cp -rf ./autocore ./autocore-arm/files/x86/
+          git clone --depth 1 https://github.com/sbwml/openwrt-qBittorrent
+          git clone --depth 1 https://github.com/QiuSimons/luci-app-daed
+          git clone --depth 1 https://github.com/immortalwrt/homeproxy
+          git clone --depth 1 https://github.com/vernesong/OpenClash
+          rm -rf ./OpenClash/luci-app-openclash/root/etc/openclash/GeoSite.dat
+          git clone --depth 1 https://github.com/morytyann/OpenWrt-mihomo
+          git clone --depth 1 https://github.com/sirpdboy/sirpdboy-package
+          cp -rf ./sirpdboy-package/luci-app-autotimeset ./luci-app-autotimeset
+          sed -i 's,"control","system",g' luci-app-autotimeset/luasrc/controller/autotimeset.lua
+          sed -i '/firstchild/d' luci-app-autotimeset/luasrc/controller/autotimeset.lua
+          sed -i 's,control,system,g' luci-app-autotimeset/luasrc/view/autotimeset/log.htm
+          sed -i '/start()/a \    echo "Service autotimesetrun started!" >/dev/null' luci-app-autotimeset/root/etc/init.d/autotimesetrun
+          rm -rf ./luci-app-autotimeset/po/zh_Hans
+          cp -rf ./sirpdboy-package/luci-app-partexp ./luci-app-partexp
+          rm -rf ./luci-app-partexp/po/zh_Hans
+          sed -i 's, - !, -o !,g' luci-app-partexp/root/etc/init.d/partexp
+          sed -i 's,expquit 1 ,#expquit 1 ,g' luci-app-partexp/root/etc/init.d/partexp
+          rm -rf ./sirpdboy-package
+          git clone --depth 1 https://github.com/coolsnowwolf/luci
+          cp -rf ./luci/applications/luci-app-frps ./luci-app-frps
+          sed -i 's|\.\./\.\.|$(TOPDIR)/feeds/luci|g' luci-app-frps/Makefile
+          cp -rf ./luci/applications/luci-app-frpc ./luci-app-frpc
+          sed -i 's|\.\./\.\.|$(TOPDIR)/feeds/luci|g' luci-app-frpc/Makefile
+          cp -rf ./luci/applications/luci-app-uugamebooster ./luci-app-uugamebooster
+          sed -i 's|\.\./\.\.|$(TOPDIR)/feeds/luci|g' luci-app-uugamebooster/Makefile
+          rm -rf ./luci
+          git clone --depth 1 https://github.com/immortalwrt/luci
+          cp -rf ./luci/applications/luci-app-arpbind ./luci-app-arpbind
+          sed -i 's|\.\./\.\.|$(TOPDIR)/feeds/luci|g' luci-app-arpbind/Makefile
+          cp -rf ./luci/applications/luci-app-zerotier ./luci-app-zerotier
+          sed -i 's|\.\./\.\.|$(TOPDIR)/feeds/luci|g' luci-app-zerotier/Makefile
+          rm -rf ./luci
+          git clone --depth 1 https://github.com/immortalwrt/packages
+          mkdir -p imm_pkg
+          cp -rf ./packages/utils/cpulimit ./imm_pkg/cpulimit
+          cp -rf ./packages/net/frp ./imm_pkg/frp
+          sed -i '/etc/d' imm_pkg/frp/Makefile
+          sed -i '/defaults/{N;d;}' imm_pkg/frp/Makefile
+          sed -i 's|\.\./\.\.|$(TOPDIR)/feeds/packages|g' imm_pkg/frp/Makefile
+          cp -rf ./packages/net/subconverter ./imm_pkg/subconverter
+          cp -rf ./packages/net/zerotier ./imm_pkg/zerotier
+          cp -rf ./packages/libs/jpcre2 ./imm_pkg/jpcre2
+          cp -rf ./packages/libs/rapidjson ./imm_pkg/rapidjson
+          cp -rf ./packages/libs/libcron ./imm_pkg/libcron
+          cp -rf ./packages/libs/quickjspp ./imm_pkg/quickjspp
+          cp -rf ./packages/libs/toml11 ./imm_pkg/toml11
+          rm -rf ./packages
+          find . -mindepth 2 -name ".git" -type d -exec rm -rf {} +
+          bash remove_upx.sh
+          bash convert.sh
+          bash create_acl_for_luci.sh -a
+          bash move_2_services.sh
+          bash fix_permissions.sh
+          bash list.sh
+
+      - name: Commit file
+        run: |
+          git config --global user.email ffuqiangg@gmail.com
+          git config --global user.name ffuqiangg
+          git add .
+          git commit -m "Update `date +%Y/%m/%d\ %H:%M:%S\ %Z`" -a
+        continue-on-error: true
+
+      - name: Push changes
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{secrets.GITHUB_TOKEN}}
+          branch: master
+        continue-on-error: true
+
+      - name: Cleanup Workflow Logs
+        uses: Mattraks/delete-workflow-runs@main
+        with:
+          token: ${{secrets.GITHUB_TOKEN}}
+          repository: ${{ github.repository }}
+          retain_days: 3
+        continue-on-error: true
