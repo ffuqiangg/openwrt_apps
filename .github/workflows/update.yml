@@ -78,6 +78,7 @@ jobs:
           cp -rf ./packages/net/subconverter ./imm_pkg/subconverter
           cp -rf ./packages/net/zerotier ./imm_pkg/zerotier
           cp -rf ./packages/net/v2raya ./imm_pkg/v2raya
+          sed -i 's|\.\./\.\.|$(TOPDIR)/feeds/packages|g' ./imm_pkg/v2raya/Makefile
           cp -rf ./packages/net/verysync ./imm_pkg/verysync
           cp -rf ./packages/net/vsftpd ./imm_pkg/vsftpd
           cp -rf ./packages/libs/jpcre2 ./imm_pkg/jpcre2
