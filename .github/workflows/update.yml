@@ -63,6 +63,7 @@ jobs:
           sed -i 's|\.\./\.\.|$(TOPDIR)/feeds/luci|g' luci-app-vsftpd/Makefile
           cp -rf ./luci/applications/luci-app-filebrowser ./luci-app-filebrowser
           sed -i 's|\.\./\.\.|$(TOPDIR)/feeds/luci|g' luci-app-filebrowser/Makefile
+          sed -i 's/system/services/g' luci-app-filebrowser/root/usr/share/luci/menu.d/luci-app-filebrowser.json
           rm -rf ./luci
           git clone --depth 1 https://github.com/immortalwrt/packages
           mkdir -p imm_pkg
