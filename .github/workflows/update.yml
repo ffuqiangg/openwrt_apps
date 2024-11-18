@@ -19,8 +19,10 @@ jobs:
           rm -rf luci-app-mosdns openwrt_helloworld OpenAppFilter openwrt_pkgs autocore-arm openwrt-qBittorrent luci-app-daed homeproxy OpenClash luci-app-v2raya OpenWrt-mihomo luci-app-autotimeset luci-app-frps luci-app-frpc luci-app-arpbind luci-app-zerotier luci-app-cpulimit luci-app-verysync luci-app-vsftpd luci-app-filebrowser imm_pkg
           git clone --depth 1 https://github.com/sbwml/luci-app-mosdns
           git clone --depth 1 https://github.com/sbwml/openwrt_helloworld
-          rm -rf ./openwrt_helloworld/{luci-app-mihomo,mihomo,luci-app-homeproxy,luci-app-openclash,luci-app-daed,daed}
+          rm -rf ./openwrt_helloworld/{luci-app-mihomo,mihomo,luci-app-homeproxy,luci-app-openclash,luci-app-daed,daed,v2ray-geodata}
           sed -i 's/result.insecure = "0"/result.insecure = "1"/g' ./openwrt_helloworld/luci-app-ssr-plus/root/usr/share/shadowsocksr/subscribe.lua
+          git clone --depth 1 https://github.com/sbwml/v2ray-geodata.git
+          mv ./v2ray-geodata ./openwrt_helloworld/v2ray-geodata
           git clone --depth 1 https://github.com/sbwml/OpenAppFilter
           git clone --depth 1 https://github.com/sbwml/openwrt_pkgs
           rm -rf ./openwrt_pkgs/{luci-app-zerotier,luci-app-filebrowser-go}
