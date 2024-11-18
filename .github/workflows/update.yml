@@ -22,7 +22,8 @@ jobs:
           rm -rf ./openwrt_helloworld/{luci-app-mihomo,mihomo,luci-app-homeproxy,luci-app-openclash,luci-app-daed,daed,v2ray-geodata}
           sed -i 's/result.insecure = "0"/result.insecure = "1"/g' ./openwrt_helloworld/luci-app-ssr-plus/root/usr/share/shadowsocksr/subscribe.lua
           git clone --depth 1 https://github.com/sbwml/v2ray-geodata.git
-          mv ./v2ray-geodata ./openwrt_helloworld/v2ray-geodata
+          cp -rf ./v2ray-geodata ./openwrt_helloworld/v2ray-geodata
+          rm -rf ./v2ray-geodata
           git clone --depth 1 https://github.com/sbwml/OpenAppFilter
           git clone --depth 1 https://github.com/sbwml/openwrt_pkgs
           rm -rf ./openwrt_pkgs/{luci-app-zerotier,luci-app-filebrowser-go}
