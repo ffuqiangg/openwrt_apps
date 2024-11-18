@@ -7,7 +7,7 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=v2ray-geodata
-PKG_VERSION:=$(shell date "+%Y%m%d%H%M%S")
+PKG_VERSION:=$(shell date "+%Y-%m-%d")
 PKG_RELEASE:=1
 
 PKG_BUILD_DIR:=$(BUILD_DIR)/$(PKG_NAME)
@@ -37,7 +37,7 @@ define Package/v2ray-geosite
   LICENSE:=GPL-3.0
 endef
 
-GEOIP_URL:=https://github.com/Loyalsoldier/geoip/releases/latest/download/geoip.dat
+GEOIP_URL:=https://github.com/Loyalsoldier/geoip/releases/latest/download/geoip-only-cn-private.dat
 GEOSITE_URL:=https://github.com/Loyalsoldier/v2ray-rules-dat/releases/latest/download/geosite.dat
 
 define Build/Compile
