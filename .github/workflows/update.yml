@@ -16,7 +16,7 @@ jobs:
 
       - name: Update Makefile
         run: |
-          rm -rf luci-app-mosdns openwrt_helloworld OpenAppFilter openwrt_pkgs autocore openwrt-qBittorrent luci-app-daed homeproxy OpenClash luci-app-v2raya OpenWrt-mihomo luci-app-autotimeset luci-app-frps luci-app-frpc luci-app-arpbind luci-app-zerotier luci-app-cpulimit luci-app-verysync luci-app-vsftpd luci-app-filebrowser imm_pkg
+          rm -rf luci-app-mosdns openwrt_helloworld OpenAppFilter openwrt_pkgs autocore-arm openwrt-qBittorrent luci-app-daed homeproxy OpenClash luci-app-v2raya OpenWrt-mihomo luci-app-autotimeset luci-app-frps luci-app-frpc luci-app-arpbind luci-app-zerotier luci-app-cpulimit luci-app-verysync luci-app-vsftpd luci-app-filebrowser imm_pkg
           git clone --depth 1 https://github.com/sbwml/luci-app-mosdns
           git clone --depth 1 https://github.com/sbwml/openwrt_helloworld
           rm -rf ./openwrt_helloworld/{luci-app-mihomo,mihomo,luci-app-homeproxy,luci-app-openclash,luci-app-daed,daed,v2ray-geodata}
@@ -27,6 +27,7 @@ jobs:
           git clone --depth 1 https://github.com/sbwml/OpenAppFilter
           git clone --depth 1 https://github.com/sbwml/openwrt_pkgs
           rm -rf ./openwrt_pkgs/{luci-app-zerotier,luci-app-filebrowser-go}
+          git clone --depth 1 https://github.com/sbwml/autocore-arm
           git clone --depth 1 https://github.com/sbwml/openwrt-qBittorrent
           git clone --depth 1 https://github.com/QiuSimons/luci-app-daed
           git clone --depth 1 https://github.com/immortalwrt/homeproxy
@@ -42,9 +43,6 @@ jobs:
           sed -i '/start()/a \    echo "Service autotimesetrun started!" >/dev/null' luci-app-autotimeset/root/etc/init.d/autotimesetrun
           rm -rf ./luci-app-autotimeset/po/zh_Hans
           rm -rf ./sirpdboy-package
-          git clone --depth 1 https://github.com/coolsnowwolf/lede
-          cp -rf ./lede/package/lean/autocore ./autocore
-          rm -rf ./lede
           git clone --depth 1 https://github.com/coolsnowwolf/luci
           cp -rf ./luci/applications/luci-app-frps ./luci-app-frps
           sed -i 's|\.\./\.\.|$(TOPDIR)/feeds/luci|g' luci-app-frps/Makefile
