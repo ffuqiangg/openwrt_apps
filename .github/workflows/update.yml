@@ -21,6 +21,9 @@ jobs:
           git clone --depth 1 https://github.com/sbwml/openwrt_helloworld
           rm -rf ./openwrt_helloworld/{luci-app-mihomo,mihomo,luci-app-homeproxy,luci-app-openclash,luci-app-daed,daed,v2ray-geodata}
           sed -i 's/result.insecure = "0"/result.insecure = "1"/g' ./openwrt_helloworld/luci-app-ssr-plus/root/usr/share/shadowsocksr/subscribe.lua
+          sed -i '/ACME TLS/a\    default y' ./openwrt_helloworld/sing-box/Makefile
+          sed -i '/DHCP support/a\    default y' ./openwrt_helloworld/sing-box/Makefile
+          sed -i '/REALITY TLS/a\    default y' ./openwrt_helloworld/sing-box/Makefile
           git clone --depth 1 https://github.com/sbwml/v2ray-geodata.git
           cp -rf ./v2ray-geodata ./openwrt_helloworld/v2ray-geodata
           rm -rf ./v2ray-geodata
