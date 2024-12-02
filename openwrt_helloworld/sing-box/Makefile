@@ -60,6 +60,7 @@ define Package/sing-box/config
   if PACKAGE_sing-box
     config SING_BOX_BUILD_ACME
     bool "Build with ACME TLS certificate issuer support"
+    default y
 
     config SING_BOX_BUILD_CLASH_API
     bool "Build with Clash API support"
@@ -67,6 +68,7 @@ define Package/sing-box/config
 
     config SING_BOX_BUILD_DHCP
     bool "Build with DHCP support"
+    default y
 
     config SING_BOX_BUILD_ECH
     bool "Build with TLS ECH extension support"
@@ -96,6 +98,7 @@ define Package/sing-box/config
 
     config SING_BOX_BUILD_REALITY_SERVER
     bool "Build with REALITY TLS server support"
+    default y
 
     config SING_BOX_BUILD_UTLS
     bool "Build with uTLS support"
