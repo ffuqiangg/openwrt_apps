@@ -16,7 +16,7 @@ jobs:
 
       - name: Update Makefile
         run: |
-          rm -rf luci-app-mosdns openwrt_helloworld OpenAppFilter openwrt_pkgs autocore-arm openwrt-qBittorrent luci-app-daed homeproxy OpenClash luci-app-v2raya OpenWrt-mihomo luci-app-autotimeset luci-app-frps luci-app-frpc luci-app-arpbind luci-app-zerotier luci-app-cpulimit luci-app-verysync luci-app-vsftpd luci-app-filebrowser imm_pkg
+          rm -rf luci-app-mosdns openwrt_helloworld OpenAppFilter openwrt_pkgs autocore-arm openwrt-qBittorrent luci-app-daed homeproxy OpenClash luci-app-v2raya OpenWrt-mihomo luci-app-autotimeset luci-app-partexp luci-app-frps luci-app-frpc luci-app-arpbind luci-app-zerotier luci-app-cpulimit luci-app-verysync luci-app-vsftpd luci-app-filebrowser imm_pkg
           git clone --depth 1 https://github.com/sbwml/luci-app-mosdns
           git clone --depth 1 https://github.com/sbwml/openwrt_helloworld
           rm -rf ./openwrt_helloworld/{luci-app-mihomo,mihomo,luci-app-homeproxy,luci-app-openclash,luci-app-daed,daed,v2ray-geodata}
