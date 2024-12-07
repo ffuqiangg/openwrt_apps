@@ -58,9 +58,9 @@ jobs:
           sed -i 's|\.\./\.\.|$(TOPDIR)/feeds/luci|g' luci-app-verysync/Makefile
           cp -rf ./luci/applications/luci-app-vsftpd ./luci-app-vsftpd
           sed -i 's|\.\./\.\.|$(TOPDIR)/feeds/luci|g' luci-app-vsftpd/Makefile
-          cp -rf ./luci/applications/luci+app-frps ./luci-app-frps
+          cp -rf ./luci/applications/luci-app-frps ./luci-app-frps
           sed -i 's|\.\./\.\.|$(TOPDIR)/feeds/luci|g' luci-app-frps/Makefile
-          cp -rf ./luci/applications/luci+app-frpc ./luci-app-frpc
+          cp -rf ./luci/applications/luci-app-frpc ./luci-app-frpc
           sed -i 's|\.\./\.\.|$(TOPDIR)/feeds/luci|g' luci-app-frpc/Makefile
           cp -rf ./luci/applications/luci-app-filebrowser ./luci-app-filebrowser
           sed -i 's|\.\./\.\.|$(TOPDIR)/feeds/luci|g' luci-app-filebrowser/Makefile
