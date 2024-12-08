@@ -47,6 +47,12 @@ jobs:
           cp -rf ./sirpdboy-package/luci-app-partexp ./luci-app-partexp
           sed -i 's,expquit 1 ,#expquit 1 ,g' luci-app-partexp/root/etc/init.d/partexp
           rm -rf ./sirpdboy-package
+          git clone --depth 1 https://github.com/coolsnowwolf/luci
+          cp -rf ./luci/applications/luci-app-frps ./luci-app-frps
+          sed -i 's|\.\./\.\.|$(TOPDIR)/feeds/luci|g' luci-app-frps/Makefile
+          cp -rf ./luci/applications/luci-app-frpc ./luci-app-frpc
+          sed -i 's|\.\./\.\.|$(TOPDIR)/feeds/luci|g' luci-app-frpc/Makefile
+          rm -rf ./luci
           git clone --depth 1 https://github.com/immortalwrt/luci
           cp -rf ./luci/applications/luci-app-arpbind ./luci-app-arpbind
           sed -i 's|\.\./\.\.|$(TOPDIR)/feeds/luci|g' luci-app-arpbind/Makefile
@@ -58,10 +64,6 @@ jobs:
           sed -i 's|\.\./\.\.|$(TOPDIR)/feeds/luci|g' luci-app-verysync/Makefile
           cp -rf ./luci/applications/luci-app-vsftpd ./luci-app-vsftpd
           sed -i 's|\.\./\.\.|$(TOPDIR)/feeds/luci|g' luci-app-vsftpd/Makefile
-          cp -rf ./luci/applications/luci-app-frps ./luci-app-frps
-          sed -i 's|\.\./\.\.|$(TOPDIR)/feeds/luci|g' luci-app-frps/Makefile
-          cp -rf ./luci/applications/luci-app-frpc ./luci-app-frpc
-          sed -i 's|\.\./\.\.|$(TOPDIR)/feeds/luci|g' luci-app-frpc/Makefile
           cp -rf ./luci/applications/luci-app-filebrowser ./luci-app-filebrowser
           sed -i 's|\.\./\.\.|$(TOPDIR)/feeds/luci|g' luci-app-filebrowser/Makefile
           sed -i 's/system/services/g' luci-app-filebrowser/root/usr/share/luci/menu.d/luci-app-filebrowser.json
