@@ -16,7 +16,7 @@ jobs:
 
       - name: Update Makefile
         run: |
-          rm -rf luci-app-mosdns openwrt_helloworld OpenAppFilter openwrt_pkgs autocore-arm openwrt-qBittorrent luci-app-daed homeproxy OpenClash luci-app-v2raya OpenWrt-mihomo luci-app-autotimeset luci-app-partexp luci-app-frps luci-app-frpc luci-app-arpbind luci-app-zerotier luci-app-cpulimit luci-app-verysync luci-app-vsftpd luci-app-filebrowser imm_pkg
+          rm -rf luci-app-mosdns openwrt_helloworld OpenAppFilter openwrt_pkgs autocore-arm openwrt-qBittorrent luci-app-daed homeproxy OpenClash luci-app-v2raya OpenWrt-mihomo luci-app-autotimeset luci-app-frps luci-app-frpc luci-app-arpbind luci-app-zerotier luci-app-cpulimit luci-app-verysync luci-app-vsftpd luci-app-filebrowser imm_pkg
           git clone --depth 1 https://github.com/sbwml/luci-app-mosdns
           git clone --depth 1 https://github.com/sbwml/openwrt_helloworld
           rm -rf ./openwrt_helloworld/{luci-app-mihomo,mihomo,luci-app-homeproxy,luci-app-openclash,luci-app-daed,daed,v2ray-geodata}
@@ -44,8 +44,6 @@ jobs:
           sed -i '/firstchild/d' luci-app-autotimeset/luasrc/controller/autotimeset.lua
           sed -i 's,control,system,g' luci-app-autotimeset/luasrc/view/autotimeset/log.htm
           sed -i '/start()/a \    echo "Service autotimesetrun started!" >/dev/null' luci-app-autotimeset/root/etc/init.d/autotimesetrun
-          cp -rf ./sirpdboy-package/luci-app-partexp ./luci-app-partexp
-          sed -i 's,expquit 1 ,#expquit 1 ,g' luci-app-partexp/root/etc/init.d/partexp
           rm -rf ./sirpdboy-package
           git clone --depth 1 https://github.com/coolsnowwolf/luci
           cp -rf ./luci/applications/luci-app-frps ./luci-app-frps
