@@ -31,6 +31,7 @@ jobs:
           git clone --depth 1 https://github.com/sbwml/openwrt_pkgs
           rm -rf ./openwrt_pkgs/{luci-app-zerotier,luci-app-filebrowser-go}
           git clone --depth 1 https://github.com/sbwml/autocore-arm
+          sed -i 's/$(uname -m)/ARMv8 Processor/' autocore-arm/files/generic/cpuinfo
           git clone --depth 1 https://github.com/sbwml/openwrt-qBittorrent
           git clone --depth 1 https://github.com/QiuSimons/luci-app-daed
           git clone --depth 1 https://github.com/immortalwrt/homeproxy
