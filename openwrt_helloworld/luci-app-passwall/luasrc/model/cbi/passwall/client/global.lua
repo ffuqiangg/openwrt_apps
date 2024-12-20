@@ -143,12 +143,16 @@ if (has_singbox or has_xray) and #nodes_table > 0 then
 	end
 	local function get_write(shunt_node_id, option)
 		return function(self, section, value)
-			m:set(shunt_node_id, option, value)
+			if s.fields["tcp_node"]:formvalue(section) == shunt_node_id then
+				m:set(shunt_node_id, option, value)
+			end
 		end
 	end
 	local function get_remove(shunt_node_id, option)
 		return function(self, section)
-			m:del(shunt_node_id, option)
+			if s.fields["tcp_node"]:formvalue(section) == shunt_node_id then
+				m:del(shunt_node_id, option)
+			end
 		end
 	end
 	if #normal_list > 0 then
@@ -571,7 +575,7 @@ if api.is_finded("smartdns") then
 end
 
 o = s:taboption("DNS", Flag, "dns_redirect", translate("DNS Redirect"), translate("Force special DNS server to need proxy devices."))
-o.default = "1"
+o.default = "0"
 o.rmempty = false
 
 if (uci:get(appname, "@global_forwarding[0]", "use_nft") or "0") == "1" then
