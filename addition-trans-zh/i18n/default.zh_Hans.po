@@ -19,12 +19,6 @@ msgstr "速率"
 msgid "Duplex"
 msgstr "双工"
 
-msgid "Link Up"
-msgstr "在线"
-
-msgid "Link Dwon"
-msgstr "离线"
-
 msgid "Full Duplex"
 msgstr "全双工"
 
