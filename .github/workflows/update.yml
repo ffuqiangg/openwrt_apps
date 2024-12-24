@@ -29,7 +29,7 @@ jobs:
           rm -rf ./v2ray-geodata
           git clone --depth 1 https://github.com/sbwml/OpenAppFilter
           git clone --depth 1 https://github.com/sbwml/openwrt_pkgs
-          rm -rf ./openwrt_pkgs/{luci-app-zerotier,luci-app-filebrowser-go}
+          rm -rf ./openwrt_pkgs/{luci-app-zerotier,luci-app-filebrowser-go,filebrowser}
           git clone --depth 1 https://github.com/sbwml/autocore-arm
           sed -i 's/$(uname -m)/ARMv8 Processor/' autocore-arm/files/generic/cpuinfo
           git clone --depth 1 https://github.com/sbwml/openwrt-qBittorrent
@@ -65,7 +65,6 @@ jobs:
           sed -i 's|\.\./\.\.|$(TOPDIR)/feeds/luci|g' luci-app-vsftpd/Makefile
           cp -rf ./luci/applications/luci-app-filebrowser-go ./luci-app-filebrowser-go
           sed -i 's|\.\./\.\.|$(TOPDIR)/feeds/luci|g' luci-app-filebrowser-go/Makefile
-          sed -i 's/system/services/g' luci-app-filebrowser-go/root/usr/share/luci/menu.d/luci-app-filebrowser.json
           rm -rf ./luci
           git clone --depth 1 https://github.com/immortalwrt/packages
           mkdir -p imm_pkg
@@ -85,6 +84,7 @@ jobs:
           cp -rf ./packages/libs/libcron ./imm_pkg/libcron
           cp -rf ./packages/libs/quickjspp ./imm_pkg/quickjspp
           cp -rf ./packages/libs/toml11 ./imm_pkg/toml11
+          cp -rf ./packages/utils/filebrowser ./imm_pkg/filebrowser
           rm -rf ./packages
           find . -mindepth 2 -name ".git" -type d -exec rm -rf {} +
           bash remove_upx.sh
