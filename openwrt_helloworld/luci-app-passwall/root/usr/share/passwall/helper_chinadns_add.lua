@@ -18,7 +18,6 @@ local DEFAULT_TAG = var["-DEFAULT_TAG"]
 local NO_LOGIC_LOG = var["-NO_LOGIC_LOG"]
 local TCP_NODE = var["-TCP_NODE"]
 local NFTFLAG = var["-NFTFLAG"]
-local REMOTE_FAKEDNS = var["-REMOTE_FAKEDNS"]
 
 local uci = api.uci
 local sys = api.sys
@@ -100,8 +99,6 @@ if not fs.access(FLAG_PATH) then
 end
 
 local setflag = (NFTFLAG == "1") and "inet@passwall@" or ""
-
-local only_global = (DEFAULT_MODE == "proxy" and CHNLIST == "0" and GFWLIST == "0") and 1
 
 config_lines = {
 	--"verbose",
@@ -252,7 +249,7 @@ if USE_PROXY_LIST == "1" and is_file_nonzero(file_proxy_host) then
 		"group proxylist",
 		"group-dnl " .. file_proxy_host,
 		"group-upstream " .. DNS_TRUST,
-		REMOTE_FAKEDNS ~= "1" and "group-ipset " .. setflag .. "passwall_blacklist," .. setflag .. "passwall_blacklist6" or nil
+		"group-ipset " .. setflag .. "passwall_blacklist," .. setflag .. "passwall_blacklist6"
 	}
 	if NO_IPV6_TRUST == "1" then table.insert(tmp_lines, "no-ipv6 tag:proxylist") end
 	insert_array_after(config_lines, tmp_lines, "#--3")
@@ -264,7 +261,7 @@ end
 if GFWLIST == "1" and is_file_nonzero(RULES_PATH .. "/gfwlist") then
 	tmp_lines = {
 		"gfwlist-file " .. RULES_PATH .. "/gfwlist",
-		REMOTE_FAKEDNS ~= "1" and "add-taggfw-ip " .. setflag .. "passwall_gfwlist," .. setflag .. "passwall_gfwlist6" or nil
+		"add-taggfw-ip " .. setflag .. "passwall_gfwlist," .. setflag .. "passwall_gfwlist6"
 	}
 	if NO_IPV6_TRUST == "1" then table.insert(tmp_lines, "no-ipv6 tag:gfw") end
 	merge_array(config_lines, tmp_lines)
@@ -291,7 +288,7 @@ if CHNLIST ~= "0" and is_file_nonzero(RULES_PATH .. "/chnlist") then
 			"group chn_proxy",
 			"group-dnl " .. RULES_PATH .. "/chnlist",
 			"group-upstream " .. DNS_TRUST,
-			REMOTE_FAKEDNS ~= "1" and "group-ipset " .. setflag .. "passwall_chnroute," .. setflag .. "passwall_chnroute6" or nil
+			"group-ipset " .. setflag .. "passwall_chnroute," .. setflag .. "passwall_chnroute6"
 		}
 		if NO_IPV6_TRUST == "1" then table.insert(tmp_lines, "no-ipv6 tag:chn_proxy") end
 		insert_array_after(config_lines, tmp_lines, "#--1")
@@ -405,7 +402,7 @@ if uci:get(appname, TCP_NODE, "protocol") == "_shunt" then
 			"group shuntlist",
 			"group-dnl " .. file_shunt_host,
 			"group-upstream " .. DNS_TRUST,
-			(not only_global and REMOTE_FAKEDNS == "1") and nil or ("group-ipset " .. setflag .. "passwall_shuntlist," .. setflag .. "passwall_shuntlist6")
+			"group-ipset " .. setflag .. "passwall_shuntlist," .. setflag .. "passwall_shuntlist6"
 		}
 		if NO_IPV6_TRUST == "1" then table.insert(tmp_lines, "no-ipv6 tag:shuntlist") end
 		insert_array_after(config_lines, tmp_lines, "#--2")
@@ -420,7 +417,7 @@ if GFWLIST == "1" and CHNLIST == "0" then DEFAULT_TAG = "chn" end
 if CHNLIST == "proxy" then DEFAULT_TAG = "chn" end
 
 --全局模式，默认使用远程DNS
-if only_global then
+if DEFAULT_MODE == "proxy" and CHNLIST == "0" and GFWLIST == "0" then
 	DEFAULT_TAG = "gfw"
 	if NO_IPV6_TRUST == "1" and uci:get(appname, TCP_NODE, "protocol") ~= "_shunt" then 
 		table.insert(config_lines, "no-ipv6")
