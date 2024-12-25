@@ -85,6 +85,7 @@ jobs:
           cp -rf ./packages/libs/quickjspp ./imm_pkg/quickjspp
           cp -rf ./packages/libs/toml11 ./imm_pkg/toml11
           cp -rf ./packages/utils/filebrowser ./imm_pkg/filebrowser
+          sed -i 's|\.\./\.\.|$(TOPDIR)/feeds/packages|g' ./imm_pkg/filebrowser/Makefile
           rm -rf ./packages
           find . -mindepth 2 -name ".git" -type d -exec rm -rf {} +
           bash remove_upx.sh
