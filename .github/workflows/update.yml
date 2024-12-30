@@ -24,6 +24,7 @@ jobs:
           sed -i '/ACME TLS/a\    default y' ./openwrt_helloworld/sing-box/Makefile
           sed -i '/DHCP support/a\    default y' ./openwrt_helloworld/sing-box/Makefile
           sed -i '/REALITY TLS/a\    default y' ./openwrt_helloworld/sing-box/Makefile
+          sed -i '/linear-gradient/d' ./openwrt_helloworld/luci-app-passwall/luasrc/view/passwall/global/status.htm
           git clone --depth 1 https://github.com/sbwml/v2ray-geodata.git
           cp -rf ./v2ray-geodata ./openwrt_helloworld/v2ray-geodata
           rm -rf ./v2ray-geodata
