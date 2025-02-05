@@ -16,7 +16,7 @@ jobs:
 
       - name: Update Makefile
         run: |
-          rm -rf luci-app-mosdns openwrt_helloworld OpenAppFilter openwrt_pkgs autocore-arm openwrt-qBittorrent luci-app-daed homeproxy OpenClash luci-app-v2raya OpenWrt-mihomo luci-app-autotimeset luci-app-frps luci-app-frpc luci-app-arpbind luci-app-zerotier luci-app-cpulimit luci-app-verysync luci-app-vsftpd luci-app-filebrowser-go imm_pkg
+          rm -rf luci-app-mosdns openwrt_helloworld OpenAppFilter openwrt_pkgs autocore-arm openwrt-qBittorrent luci-app-daed homeproxy OpenClash luci-app-v2raya OpenWrt-mihomo luci-app-autotimeset luci-app-frps luci-app-frpc luci-app-arpbind luci-app-zerotier luci-app-cpulimit luci-app-verysync luci-app-vsftpd imm_pkg
           git clone --depth 1 https://github.com/sbwml/luci-app-mosdns
           git clone --depth 1 https://github.com/sbwml/openwrt_helloworld
           rm -rf ./openwrt_helloworld/{luci-app-mihomo,mihomo,luci-app-homeproxy,luci-app-openclash,luci-app-daed,daed,v2ray-geodata}
@@ -30,7 +30,7 @@ jobs:
           rm -rf ./v2ray-geodata
           git clone --depth 1 https://github.com/sbwml/OpenAppFilter
           git clone --depth 1 https://github.com/sbwml/openwrt_pkgs
-          rm -rf ./openwrt_pkgs/{luci-app-zerotier,luci-app-filebrowser-go,filebrowser}
+          rm -rf ./openwrt_pkgs/luci-app-zerotier
           git clone --depth 1 https://github.com/sbwml/autocore-arm
           sed -i 's/$(uname -m)/ARMv8 Processor/' autocore-arm/files/generic/cpuinfo
           git clone --depth 1 https://github.com/sbwml/openwrt-qBittorrent
@@ -64,8 +64,6 @@ jobs:
           sed -i 's|\.\./\.\.|$(TOPDIR)/feeds/luci|g' luci-app-verysync/Makefile
           cp -rf ./luci/applications/luci-app-vsftpd ./luci-app-vsftpd
           sed -i 's|\.\./\.\.|$(TOPDIR)/feeds/luci|g' luci-app-vsftpd/Makefile
-          cp -rf ./luci/applications/luci-app-filebrowser-go ./luci-app-filebrowser-go
-          sed -i 's|\.\./\.\.|$(TOPDIR)/feeds/luci|g' luci-app-filebrowser-go/Makefile
           rm -rf ./luci
           git clone --depth 1 https://github.com/immortalwrt/packages
           mkdir -p imm_pkg
@@ -85,8 +83,6 @@ jobs:
           cp -rf ./packages/libs/libcron ./imm_pkg/libcron
           cp -rf ./packages/libs/quickjspp ./imm_pkg/quickjspp
           cp -rf ./packages/libs/toml11 ./imm_pkg/toml11
-          cp -rf ./packages/utils/filebrowser ./imm_pkg/filebrowser
-          sed -i 's|\.\./\.\.|$(TOPDIR)/feeds/packages|g' ./imm_pkg/filebrowser/Makefile
           rm -rf ./packages
           find . -mindepth 2 -name ".git" -type d -exec rm -rf {} +
           bash remove_upx.sh
