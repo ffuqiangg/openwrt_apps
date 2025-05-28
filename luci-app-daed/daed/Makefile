@@ -5,10 +5,10 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=daed
-PKG_VERSION:=2025.05.23
+PKG_VERSION:=2025.05.28
 DAED_VERSION:=daed-d9d4515
 WING_VERSION:=wing-bcf41d1
-CORE_VERSION:=core-b5f9479
+CORE_VERSION:=core-12d4a5b
 WING_HASH_SHORT:=$(shell echo $(WING_VERSION) | cut -d- -f2)
 CORE_HASH_SHORT:=$(shell echo $(CORE_VERSION) | cut -d- -f2)
 PKG_RELEASE:=1
@@ -41,6 +41,7 @@ include $(INCLUDE_DIR)/package.mk
 include $(INCLUDE_DIR)/bpf.mk
 include $(TOPDIR)/feeds/packages/lang/golang/golang-package.mk
 
+GO_PKG_DEFAULT_LDFLAGS:=-w -s -extldflags "-static"
 TAR_CMD=$(HOST_TAR) -C $(BUILD_DIR)/ $(TAR_OPTIONS)
 
 define Package/daed/Default
