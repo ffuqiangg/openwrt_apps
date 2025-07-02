@@ -1255,6 +1255,9 @@ msgstr "需要节点支持"
 msgid "plugin"
 msgstr "插件"
 
+msgid "Supports custom SIP003 plugins, Make sure the plugin is installed."
+msgstr "支持自定义 SIP003 插件，请确保插件已安装。"
+
 msgid "opts"
 msgstr "插件选项"
 
@@ -1809,9 +1812,6 @@ msgstr "是否要恢复客户端默认配置？"
 
 msgid "Are you sure you want to restore the client to default settings?"
 msgstr "是否真的要恢复客户端默认配置？"
-
-msgid "Settings have been successfully saved and applied!"
-msgstr "设置已成功保存并应用!"
 
 msgid "_urltest"
 msgstr "URLTest"
