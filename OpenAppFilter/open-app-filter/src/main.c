@@ -356,11 +356,15 @@ void update_oaf_record_status(void){
 }
 
 void af_hnat_init(void){
-    if (g_af_config.global.enable == 0){
+    if (g_af_config.global.enable != 1) {
+        LOG_INFO("appfilter disabled, restore offloading...\n");
+        system("/usr/bin/hnat.sh restore");
+        g_hnat_init = 0;
         return;
     }
+
     if (g_hnat_init == 0){
-        LOG_INFO("disable hnat...\n");
+        LOG_INFO("appfilter enabled, disabling hnat...\n");
         system("/usr/bin/hnat.sh");
         g_hnat_init = 1;
     }
