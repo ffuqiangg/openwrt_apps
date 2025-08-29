@@ -16,7 +16,7 @@ jobs:
 
       - name: Update Makefile
         run: |
-          rm -rf luci-app-mosdns openwrt_helloworld OpenAppFilter openwrt_pkgs autocore-arm openwrt-qBittorrent luci-app-daed homeproxy OpenClash luci-app-v2raya OpenWrt-nikki luci-app-frps luci-app-frpc luci-app-arpbind luci-app-zerotier luci-app-cpulimit luci-app-vsftpd imm_pkg
+          rm -rf luci-app-mosdns openwrt_helloworld OpenAppFilter openwrt_pkgs autocore-arm openwrt-qBittorrent luci-app-daed homeproxy OpenClash luci-app-v2raya OpenWrt-nikki OpenWrt-momo luci-app-frps luci-app-frpc luci-app-arpbind luci-app-zerotier luci-app-cpulimit luci-app-vsftpd imm_pkg
           git clone --depth 1 https://github.com/sbwml/luci-app-mosdns
           git clone --depth 1 https://github.com/sbwml/openwrt_helloworld
           rm -rf ./openwrt_helloworld/{luci-app-nikki,nikki,luci-app-homeproxy,luci-app-openclash,luci-app-daed,daed,v2ray-geodata}
@@ -40,6 +40,7 @@ jobs:
           rm -rf ./OpenClash/luci-app-openclash/root/etc/openclash/GeoSite.dat
           git clone --depth 1 https://github.com/zxlhhyccc/luci-app-v2raya
           git clone --depth 1 https://github.com/nikkinikki-org/OpenWrt-nikki
+          git clone --depth 1 https://github.com/nikkinikki-org/OpenWrt-momo
           git clone --depth 1 https://github.com/coolsnowwolf/luci
           cp -rf ./luci/applications/luci-app-frps ./luci-app-frps
           sed -i 's|\.\./\.\.|$(TOPDIR)/feeds/luci|g' luci-app-frps/Makefile
