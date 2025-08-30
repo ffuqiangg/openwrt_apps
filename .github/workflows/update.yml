@@ -16,7 +16,7 @@ jobs:
 
       - name: Update Makefile
         run: |
-          rm -rf luci-app-mosdns openwrt_helloworld OpenAppFilter openwrt_pkgs autocore-arm openwrt-qBittorrent luci-app-daed homeproxy OpenClash luci-app-v2raya OpenWrt-nikki OpenWrt-momo luci-app-frps luci-app-frpc luci-app-arpbind luci-app-zerotier luci-app-cpulimit luci-app-vsftpd imm_pkg
+          rm -rf luci-app-mosdns openwrt_helloworld OpenAppFilter openwrt_pkgs autocore-arm openwrt-qBittorrent luci-app-daed homeproxy OpenClash luci-app-v2raya OpenWrt-nikki OpenWrt-momo luci-app-frps luci-app-frpc luci-app-arpbind luci-app-zerotier luci-app-cpulimit imm_pkg
           git clone --depth 1 https://github.com/sbwml/luci-app-mosdns
           git clone --depth 1 https://github.com/sbwml/openwrt_helloworld
           rm -rf ./openwrt_helloworld/{luci-app-nikki,nikki,luci-app-homeproxy,luci-app-openclash,luci-app-daed,daed,v2ray-geodata}
@@ -54,8 +54,6 @@ jobs:
           sed -i 's|\.\./\.\.|$(TOPDIR)/feeds/luci|g' luci-app-zerotier/Makefile
           cp -rf ./luci/applications/luci-app-cpulimit ./luci-app-cpulimit
           sed -i 's|\.\./\.\.|$(TOPDIR)/feeds/luci|g' luci-app-cpulimit/Makefile
-          cp -rf ./luci/applications/luci-app-vsftpd ./luci-app-vsftpd
-          sed -i 's|\.\./\.\.|$(TOPDIR)/feeds/luci|g' luci-app-vsftpd/Makefile
           rm -rf ./luci
           git clone --depth 1 https://github.com/immortalwrt/packages
           mkdir -p imm_pkg
