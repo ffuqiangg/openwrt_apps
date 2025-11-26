@@ -129,7 +129,7 @@ index 58348cb..8311476 100644
  -- [[ Other Settings ]]--
  s = m:section(TypedSection, "global_other")
 diff --git a/luci-app-passwall/luasrc/model/cbi/passwall/client/node_subscribe.lua b/luci-app-passwall/luasrc/model/cbi/passwall/client/node_subscribe.lua
-index 65f7adc..56b7a08 100644
+index d82b0c0..978804b 100644
 --- a/luci-app-passwall/luasrc/model/cbi/passwall/client/node_subscribe.lua
 +++ b/luci-app-passwall/luasrc/model/cbi/passwall/client/node_subscribe.lua
 @@ -46,6 +46,10 @@ end
@@ -432,10 +432,10 @@ index eb5527e..133c295 100644
  		cursor: pointer;
  	}
 diff --git a/luci-app-passwall/po/zh-cn/passwall.po b/luci-app-passwall/po/zh-cn/passwall.po
-index f8d85e4..f846428 100644
+index 732a415..2080140 100644
 --- a/luci-app-passwall/po/zh-cn/passwall.po
 +++ b/luci-app-passwall/po/zh-cn/passwall.po
-@@ -1891,9 +1891,6 @@ msgstr "是否要恢复客户端默认配置？"
+@@ -1894,9 +1894,6 @@ msgstr "是否要恢复客户端默认配置？"
  msgid "Are you sure you want to restore the client to default settings?"
  msgstr "是否真的要恢复客户端默认配置？"
  
